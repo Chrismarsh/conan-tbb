@@ -16,7 +16,7 @@ that have future-proof scalability"""
     topics = ("conan", "tbb", "threading", "parallelism", "tbbmalloc")
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False], "fPIC": [True, False], "tbbmalloc": [True, False], "tbbproxy": [True, False]}
-    default_options = {"shared": False, "fPIC": True, "tbbmalloc": False, "tbbproxy": False}
+    default_options = {"shared": True, "fPIC": True, "tbbmalloc": False, "tbbproxy": False}
     _source_subfolder = "source_subfolder"
 
     def build_requirements(self):
