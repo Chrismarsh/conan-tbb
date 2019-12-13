@@ -8,7 +8,6 @@ env:
       - MAKEFLAGS: "-j 2"
       - CONAN_UPLOAD_DEPENDENCIES: "all"
 
-
 linux: &linux
    os: linux
    dist: xenial
