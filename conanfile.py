@@ -59,7 +59,7 @@ that have future-proof scalability"""
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        os.rename("{}-{}".format(self.name.lower(), self.version.upper()), self._source_subfolder)
+        os.rename("{}-{}".format("oneTBB", self.version.upper()), self._source_subfolder)
 
         # Get the version of the current compiler instead of gcc
         linux_include = os.path.join(self._source_subfolder, "build", "linux.inc")
