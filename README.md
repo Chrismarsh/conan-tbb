@@ -6,6 +6,6 @@ Build artifacts are uploaded to [Bintray](https://bintray.com/chrismarsh/CHM)
 
 
 ```
-conan install tbb/2019_u9@CHM/stable
+conan install tbb/2019.9@CHM/stable
 ```
 
