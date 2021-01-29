@@ -39,7 +39,7 @@ jobs:
           - {os: "ubuntu-latest", compiler: "gcc", version: 8}
           - {os: "ubuntu-latest", compiler: "gcc", version: 9}
           - {os: "macos-latest", compiler: "apple-clang", version: "12.0"}
-        lib-version: ["1.71.0","1.75.0"]
+        lib-version: ["2019.9","2020.3"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -75,7 +75,7 @@ jobs:
           python build.py
         env:
           CONAN_CURRENT_PAGE: ${{matrix.cfg.compiler}}_shared
-          CONAN_REFERENCE: boost/${{ matrix.lib-version}}
+          CONAN_REFERENCE: tbb/${{ matrix.lib-version}}
 
 
 
