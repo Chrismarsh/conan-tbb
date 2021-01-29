@@ -9,7 +9,6 @@ class TBBConan(ConanFile):
     license = "Apache-2.0"
     url = "https://github.com/conan-io/conan-center-index"
     homepage = "https://github.com/intel/tbb"
-    version = "2019_u9"
     description = """Intel Threading Building Blocks (Intel TBB) lets you easily write parallel C++
 programs that take full advantage of multicore performance, that are portable and composable, and
 that have future-proof scalability"""
@@ -59,12 +58,15 @@ that have future-proof scalability"""
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        os.rename("{}-{}".format("oneTBB", self.version.upper()), self._source_subfolder)
+        os.rename("{}-{}".format("oneTBB", self.version), self._source_subfolder)
 
-        # Get the version of the current compiler instead of gcc
-        linux_include = os.path.join(self._source_subfolder, "build", "linux.inc")
-        tools.replace_in_file(linux_include, "shell gcc", "shell $(CC)")
-        tools.replace_in_file(linux_include, "= gcc", "= $(CC)")
+        try:
+            # Get the version of the current compiler instead of gcc
+            linux_include = os.path.join(self._source_subfolder, "build", "linux.inc")
+            tools.replace_in_file(linux_include, "shell gcc", "shell $(CC)")
+            tools.replace_in_file(linux_include, "= gcc", "= $(CC)")
+        except FileNotFoundError as e:
+            pass #file not present on newer versions
 
     def get_targets(self):
         targets = ["tbb"]
