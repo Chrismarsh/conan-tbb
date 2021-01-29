@@ -58,7 +58,15 @@ that have future-proof scalability"""
 
     def source(self):
         tools.get(**self.conan_data["sources"][self.version])
-        os.rename("{}-{}".format("oneTBB", self.version), self._source_subfolder)
+
+        try:
+            os.rename("{}-{}".format("oneTBB", self.version), self._source_subfolder)
+        except FileNotFoundError as e:
+            # try the older naming scheme
+            major = str(self.version).split('.')[0]
+            minor = str(self.version).split('.')[-1]
+
+            os.rename("{}-{}_U{}".format("oneTBB", major, minor), self._source_subfolder)
 
         try:
             # Get the version of the current compiler instead of gcc
