@@ -135,20 +135,11 @@ that have future-proof scalability"""
         self.copy(pattern="*%s*.a" % build_type, dst="lib", src=build_folder, keep_path=False)
         self.copy(pattern="*%s*.dll" % build_type, dst="bin", src=build_folder, keep_path=False)
         self.copy(pattern="*%s*.dylib" % build_type, dst="lib", src=build_folder, keep_path=False)
+        self.copy(pattern="*%s*.so" % build_type, dst="lib", src=build_folder, keep_path=False)
+
         # Copy also .dlls to lib folder so consumers can link against them directly when using MinGW
         if self.settings.os == "Windows" and self.settings.compiler == "gcc":
             self.copy("*%s*.dll" % build_type, dst="lib", src=build_folder, keep_path=False)
-
-        if self.settings.os == "Linux":
-            extension = "so"
-            if self.options.shared:
-                self.copy("*%s*.%s.*" % (build_type, extension), "lib", build_folder,
-                          keep_path=False)
-                outputlibdir = os.path.join(self.package_folder, "lib")
-                os.chdir(outputlibdir)
-                for fpath in os.listdir(outputlibdir):
-                    self.run("ln -s \"%s\" \"%s\"" %
-                             (fpath, fpath[0:fpath.rfind("." + extension) + len(extension) + 1]))
 
     def package_info(self):
         suffix = "_debug" if self.settings.build_type == "Debug" else ""
